@@ -1,0 +1,9 @@
+# Exakta versioner = samma app i dag och om ett år. Det här är versionerna som alla tester är körda mot.
+# Uppgradera medvetet: ändra en rad, kör kontrollera.bat och testerna, och ladda sedan upp.
+# Stödda Python-versioner: 3.12 och 3.13 (pandas 3 kräver minst 3.11).
+streamlit==1.64.0
+anthropic==1.7.0
+pandas==3.0.6
+openpyxl==3.1.5
+pillow==12.1.1
+pillow-heif==1.7.0

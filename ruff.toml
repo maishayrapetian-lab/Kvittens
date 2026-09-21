@@ -1,0 +1,11 @@
+# Kodgranskning. Reglerna fångar riktiga fel (oanvända namn, odefinierade variabler, syntax) – inte smaksaker.
+line-length = 160
+target-version = "py311"
+extend-exclude = [".venv", "venv", "env"]
+
+[lint]
+select = ["E", "F", "W", "B", "UP", "I"]
+ignore = ["E501", "E701", "E702", "B008", "UP007"]
+
+[lint.per-file-ignores]
+"tests/*" = ["E402", "B011"]

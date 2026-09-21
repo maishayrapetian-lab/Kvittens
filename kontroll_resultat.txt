@@ -1,0 +1,28 @@
+Kontroll av Kvittens – 2026-09-21 05:38
+Mapp: C:\Users\mais_\Documents\matarapp
+
+1. Python
+  [OK]  Python 3.12.10 (projektets egen miljö)
+2. Paket
+  [OK]  streamlit 1.64.0
+  [OK]  anthropic 1.7.0
+  [OK]  pandas 3.0.6
+  [OK]  openpyxl 3.1.5
+  [OK]  pillow 12.1.1
+3. Appens filer
+  [OK]  Alla 11 filer finns, inklusive mallen mall.xlsx.
+4. API-nyckel och lösenord
+  [FIXAT] Nyckeln låg i fel fil (secrets.toml.example). Den är flyttad till secrets.toml, som är filen appen läser.
+  [FIXAT] secrets.toml.example är återställd till en tom mall, så att nyckeln bara finns på ett ställe.
+  [OK]  Nyckel hittad i .streamlit/secrets.toml. Den slutar på …bAAA – jämför med listan under API keys i Console.
+  [OK]  Lösenordet är tillräckligt långt.
+5. Kontakt med AI-tjänsten
+  [OK]  Nyckeln fungerar och modellen claude-sonnet-5 svarar.
+6. Riktig provavläsning av en testbild (kostar några ören)
+  [OK]  IMG_2033.jpeg: alla 8 fält rätt avlästa (STAD* 25, 0.192 l/s, Kv 2.7).
+7. Mejlutskick (valfritt)
+  [--]  Inte inställt. Protokollet går att ladda ner ändå. Vill du kunna mejla det: se DRIFTSÄTTNING.md, steg 6.
+
+ALLT FUNGERAR. Starta appen med starta_appen.bat, eller kör hela mätningen med utvardera.bat.
+
+Resultatet är sparat i kontroll_resultat.txt

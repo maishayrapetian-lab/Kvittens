@@ -1,0 +1,27 @@
+{
+  "_kommentar": "Facit för testbilderna: det som FAKTISKT står på displayerna, en post per display i läsordning. Lägg till egna bilder här allt eftersom – ju större testbank, desto säkrare vet du om en ändring gör appen bättre eller sämre.",
+  "IMG_1538.jpeg": [
+    {"typ": "STAF*", "dimension": "65", "installning": "3.7", "kv": "13.9", "mattryck": "24.0", "projekterat": "1.88", "uppmatt": "1.90", "ventilnummer": "246"}
+  ],
+  "IMG_1640.jpeg": [
+    {"typ": "STAD*", "dimension": "32", "installning": "4", "kv": "14.2", "mattryck": "3.51", "projekterat": "", "uppmatt": "0.741", "ventilnummer": ""}
+  ],
+  "IMG_2031.jpeg": [
+    {"typ": "STAD*", "dimension": "32", "installning": "2", "kv": "5.22", "mattryck": "6.42", "projekterat": "0.36", "uppmatt": "0.368", "ventilnummer": ""}
+  ],
+  "IMG_2032.jpeg": [
+    {"typ": "STAD*", "dimension": "32", "installning": "1.5", "kv": "3.36", "mattryck": "6.49", "projekterat": "0.24", "uppmatt": "0.238", "ventilnummer": ""}
+  ],
+  "IMG_2033.jpeg": [
+    {"typ": "STAD*", "dimension": "25", "installning": "1.7", "kv": "2.7", "mattryck": "6.52", "projekterat": "0.19", "uppmatt": "0.192", "ventilnummer": ""}
+  ],
+  "IMG_2034.jpeg": [
+    {"typ": "STAD*", "dimension": "10", "installning": "1.6", "kv": "0.158", "mattryck": "22.8", "projekterat": "0.02", "uppmatt": "0.021", "ventilnummer": ""}
+  ],
+  "FullSizeRender.jpeg": [
+    {"typ": "STAF*", "dimension": "80", "installning": "6", "kv": "81.2", "mattryck": "3.47", "projekterat": "4.22", "uppmatt": "4.21", "ventilnummer": ""},
+    {"typ": "STAF*", "dimension": "80", "installning": "6", "kv": "81.2", "mattryck": "3.52", "projekterat": "4.22", "uppmatt": "4.24", "ventilnummer": ""},
+    {"typ": "STAF*", "dimension": "80", "installning": "5.6", "kv": "72", "mattryck": "3.75", "projekterat": "3.84", "uppmatt": "3.88", "ventilnummer": ""},
+    {"typ": "STAF*", "dimension": "80", "installning": "5.6", "kv": "72", "mattryck": "3.63", "projekterat": "3.84", "uppmatt": "3.82", "ventilnummer": ""}
+  ]
+}
