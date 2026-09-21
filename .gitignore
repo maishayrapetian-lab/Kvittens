@@ -1,0 +1,10 @@
+.streamlit/secrets*
+__pycache__/
+.pytest_cache/
+*.pyc
+*.tmp
+utvardering_resultat.txt
+kontroll_resultat.txt
+.venv/
+venv/
+env/
