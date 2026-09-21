@@ -39,6 +39,19 @@ def _sv(text: str) -> str:
     return str(text).strip().replace(".", ",")
 
 
+# Excel tolkar en cell som börjar med = + - @ som en FORMEL. Avläst text kommer från
+# ett foto och från fritextfälten, och protokollet mejlas vidare – då får ingen text
+# kunna bli en formel som körs hos mottagaren.
+_FORMELSTART = ("=", "+", "-", "@", "\t", "\r")
+
+
+def _text_cell(cell, text: str) -> None:
+    """Skriv text i cellen. Text som ser ut som en formel skrivs som ren text."""
+    cell.value = text
+    if text[:1] in _FORMELSTART:
+        cell.data_type = "s"                       # tvingar <is><t>…</t></is>: Excel visar tecknen, räknar inget
+
+
 def skapa_protokoll(rader: list[dict], jobb: dict | None = None, pump: dict | None = None,
                     mall: str | Path | None = None) -> bytes:
     """Returnerar den ifyllda Excel-filen som bytes (redo för nedladdning).
@@ -73,7 +86,7 @@ def skapa_protokoll(rader: list[dict], jobb: dict | None = None, pump: dict | No
             if falt == "ventilnummer" and text.isdigit() and not text.startswith("0"):
                 cell.value, cell.number_format = int(text), "0"
             else:
-                cell.value = text
+                _text_cell(cell, text)
 
         for falt in _TALFALT:
             text = str(rad.get(falt) or "").strip()
@@ -82,7 +95,7 @@ def skapa_protokoll(rader: list[dict], jobb: dict | None = None, pump: dict | No
             cell = ws.cell(r, config.KOLUMNER[falt])
             tal, decimaler = tolka_tal(text)
             if tal is None:                                    # t.ex. "DN20" – skrivs som text
-                cell.value = text
+                _text_cell(cell, text)
                 continue
             cell.value = int(tal) if decimaler == 0 else tal   # riktiga tal: svensk Excel visar decimalkomma
             cell.number_format = "0" if decimaler == 0 else "0." + "0" * decimaler
@@ -116,8 +129,11 @@ def skapa_protokoll(rader: list[dict], jobb: dict | None = None, pump: dict | No
             varde = str(jobb.get(nyckel) or "").strip()
             if nyckel == "byggnad" and not varde:
                 varde = "-"                                        # mallens sätt att visa "ingen byggnad"
-            ws[celler["protokoll"]] = varde or None
-            fs[celler["forsattsblad"]] = varde or None
+            for blad, cell in ((ws, celler["protokoll"]), (fs, celler["forsattsblad"])):
+                if varde:
+                    _text_cell(blad[cell], varde)
+                else:
+                    blad[cell] = None
 
     # ---- pumpdata på försättsbladet -----------------------------------------
     if str(pump.get("beteckning") or "").strip():

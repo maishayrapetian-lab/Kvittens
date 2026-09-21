@@ -1,0 +1,42 @@
+name: Kontroll
+
+# Körs vid varje uppladdning. Grön bock = tester, kodgranskning och spärrarna gick igenom.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tester:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Installera paketen
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+      - name: Kodgranskning (ruff)
+        run: python -m ruff check .
+      - name: Tester (pytest)
+        run: python -m pytest tests -q
+
+  sparrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inga nyckelfiler, inget __pycache__, ingen dubblettmapp
+        run: |
+          fel=0
+          if git ls-files | grep -E '^\.streamlit/secrets'; then echo "STOPP: en nyckelfil är incheckad."; fel=1; fi
+          if git ls-files | grep -E '(^|/)__pycache__/|\.pyc$'; then echo "STOPP: __pycache__ är incheckat."; fel=1; fi
+          if git ls-files | grep -E '^matarapp/'; then echo "STOPP: dubblettmappen matarapp/ är incheckad."; fel=1; fi
+          if ! git ls-files | grep -qx '.streamlit/config.toml'; then echo "STOPP: .streamlit/config.toml saknas i förrådet."; fel=1; fi
+          if git ls-files | xargs grep -lE 'sk-ant-[A-Za-z0-9_-]{30,}' -- ':!tests/*'; then echo "STOPP: något som ser ut som en riktig API-nyckel ligger i koden."; fel=1; fi
+          exit $fel

@@ -78,7 +78,15 @@ def nas_utifran() -> bool:
         vard = (st.context.headers.get("Host") or "").split(":")[0].lower()
     except Exception:
         vard = ""
-    return bool(vard) and vard not in ("localhost", "127.0.0.1", "::1", "[::1]")
+    if vard:
+        return vard not in ("localhost", "127.0.0.1", "::1", "[::1]")
+    # Inget Host-huvud (en mellanliggande proxy kan ha tagit bort det). Gissa inte "egen dator" –
+    # fråga i stället vilken adress servern lyssnar på. localhost = bara den här datorn.
+    try:
+        adress = (st.get_option("server.address") or "").strip().lower()
+    except Exception:
+        adress = ""
+    return adress not in ("", "localhost", "127.0.0.1", "::1")
 
 
 def krav_losenord() -> None:
