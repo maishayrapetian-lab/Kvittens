@@ -68,7 +68,10 @@ def _registrera():
     return st.components.v2.component("dela_protokoll", html=_HTML, css=_CSS, js=_JS)
 
 
-_komponent = _registrera()
+try:                                       # en dela-knapp får aldrig kunna fälla hela appen vid start
+    _komponent = _registrera()
+except Exception:                          # pragma: no cover – t.ex. om Streamlit ändrar komponent-API:t
+    _komponent = None
 
 
 def delaknapp(data: bytes, filnamn: str, amne: str, text: str, key: str = "dela") -> None:
@@ -87,6 +90,8 @@ def delaknapp(data: bytes, filnamn: str, amne: str, text: str, key: str = "dela"
                  "eller slå på mejlutskicket ovan.",
     }
     try:
+        if _komponent is None:
+            raise RuntimeError("komponenten kunde inte registreras vid start")
         _komponent(key=key, data=innehall)
     except Exception:
         try:                                   # servern kan ha startat om komponentregistret – registrera på nytt

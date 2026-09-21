@@ -1,0 +1,44 @@
+# Kvittens – tema och driftinställningar.
+# Den här filen MÅSTE ligga i förrådet. Utan den får appen Streamlits röda standardtema,
+# Barlow laddas inte, och hela feltexter (traceback) visas för besökare.
+
+[theme]
+base = "light"
+primaryColor = "#0E5A6B"          # petrol – knappar och markeringar
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F6F8F9"
+textColor = "#1B2B34"
+linkColor = "#0E5A6B"
+borderColor = "#D3DADF"
+baseRadius = "6px"
+font = "Barlow, sans-serif"
+codeFont = "monospace"
+
+[[theme.fontFaces]]
+family = "Barlow"
+url = "app/static/barlow-400.woff2"
+weight = 400
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Barlow"
+url = "app/static/barlow-600.woff2"
+weight = 600
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Barlow"
+url = "app/static/barlow-700.woff2"
+weight = 700
+style = "normal"
+
+[server]
+enableStaticServing = true        # krävs för att typsnitten i static/ ska kunna hämtas
+maxUploadSize = 25                # MB per bild – samma tal som texten i uppladdningsrutan
+
+[client]
+showErrorDetails = "stacktrace-in-logs-only"   # besökare får ett kort meddelande, hela felet hamnar i loggen
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false
